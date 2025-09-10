@@ -2,41 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Professional Chatbot Admin Design System - Corporate Blue Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Corporate Background Colors */
+    --background: 210 20% 98%;
+    --foreground: 210 22% 22%;
 
+    /* Card and Surface Colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 22% 22%;
+    --card-accent: 214 32% 91%;
 
+    /* Popover Colors */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 22% 22%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Corporate Blue Primary */
+    --primary: 214 84% 56%;
+    --primary-hover: 214 84% 48%;
     --primary-foreground: 210 40% 98%;
+    --primary-light: 214 100% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Professional Secondary */
+    --secondary: 210 16% 93%;
+    --secondary-hover: 210 16% 88%;
+    --secondary-foreground: 210 22% 22%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Tones */
+    --muted: 210 16% 93%;
+    --muted-foreground: 210 10% 54%;
+    --muted-dark: 210 10% 64%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent Colors */
+    --accent: 210 16% 93%;
+    --accent-foreground: 210 22% 22%;
+    --accent-blue: 214 84% 56%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 142 76% 95%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 95%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Border and Input */
+    --border: 214 20% 85%;
+    --input: 214 20% 85%;
+    --input-focus: 214 84% 56%;
+    --ring: 214 84% 56%;
 
     --radius: 0.5rem;
+
+    /* Gradients for Corporate Appeal */
+    --gradient-primary: linear-gradient(135deg, hsl(214 84% 56%), hsl(214 84% 48%));
+    --gradient-secondary: linear-gradient(135deg, hsl(210 16% 96%), hsl(210 16% 90%));
+    --gradient-hero: linear-gradient(135deg, hsl(214 84% 56%), hsl(221 83% 53%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(214 32% 97%));
+    
+    /* Shadows for Depth */
+    --shadow-card: 0 1px 3px 0 hsl(210 20% 85% / 0.1), 0 1px 2px -1px hsl(210 20% 85% / 0.1);
+    --shadow-card-hover: 0 4px 6px -1px hsl(210 20% 85% / 0.1), 0 2px 4px -2px hsl(210 20% 85% / 0.1);
+    --shadow-primary: 0 4px 14px 0 hsl(214 84% 56% / 0.25);
+    
+    /* Transitions */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +133,82 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-dark rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
+
+@layer components {
+  /* Professional Card Variants */
+  .admin-card {
+    @apply bg-gradient-card shadow-card border border-border rounded-lg transition-smooth hover:shadow-card-hover;
+  }
+
+  .status-indicator {
+    @apply w-2 h-2 rounded-full animate-pulse;
+  }
+
+  .metric-card {
+    @apply admin-card p-6 text-center space-y-2;
+  }
+
+  /* Loading states */
+  .loading-shimmer {
+    @apply animate-pulse bg-gradient-to-r from-muted via-muted-dark to-muted bg-[length:200%_100%];
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Smooth interactions */
+  .interactive-element {
+    @apply transition-smooth hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px hsl(var(--foreground) / 0.1);
+  }
+
+  .backdrop-blur-glass {
+    backdrop-filter: blur(12px) saturate(180%);
+    background-color: hsl(var(--background) / 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
