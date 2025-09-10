@@ -5,10 +5,12 @@ import {
   MessageSquare, 
   Shield, 
   Upload,
-  Bot
+  Bot,
+  LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AdminSidebarProps {
   activeTab: string;
@@ -49,8 +51,10 @@ const menuItems = [
 ];
 
 export function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
+  const { signOut, user } = useAuth();
+
   return (
-    <aside className="w-64 bg-gradient-card shadow-card border-r border-border h-screen overflow-y-auto">
+    <aside className="w-64 bg-gradient-card shadow-card border-r border-border h-screen overflow-y-auto flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-border">
         <div className="flex items-center gap-3">
@@ -65,7 +69,7 @@ export function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="p-4 space-y-2">
+      <nav className="p-4 space-y-2 flex-1">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -97,9 +101,26 @@ export function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-gradient-secondary">
-        <div className="text-xs text-muted-foreground text-center">
+      {/* User info and logout */}
+      <div className="p-4 border-t border-border bg-gradient-secondary">
+        {user && (
+          <div className="mb-3 p-2 rounded-lg bg-secondary/30">
+            <p className="text-xs font-medium text-foreground">{user.email}</p>
+            <p className="text-xs text-muted-foreground">Administrador</p>
+          </div>
+        )}
+        
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-secondary"
+          onClick={signOut}
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Sair
+        </Button>
+        
+        <div className="text-xs text-muted-foreground text-center mt-3">
           <p>ChatBot Admin v1.0</p>
           <p className="mt-1">Sistema Profissional</p>
         </div>
