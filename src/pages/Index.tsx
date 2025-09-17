@@ -7,7 +7,7 @@ import { DocumentManagement } from "@/components/DocumentManagement";
 import { ConversationHistory } from "@/components/ConversationHistory";
 import { SecurityMonitoring } from "@/components/SecurityMonitoring";
 import { useAuth } from "@/hooks/useAuth";
-import { Loader2 } from "lucide-react";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -21,14 +21,7 @@ const Index = () => {
   }, [isAuthenticated, loading, navigate]);
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
-          <p className="mt-2 text-muted-foreground">Carregando...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Carregando painel administrativo..." />;
   }
 
   if (!isAuthenticated) {

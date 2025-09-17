@@ -176,7 +176,8 @@
 
   /* Smooth interactions */
   .interactive-element {
-    @apply transition-smooth hover:scale-[1.02] active:scale-[0.98];
+    @apply hover:scale-[1.02] active:scale-[0.98];
+    transition: var(--transition-smooth);
   }
 
   .floating-element {

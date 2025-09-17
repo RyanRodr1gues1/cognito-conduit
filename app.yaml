@@ -1,0 +1,34 @@
+# Google Cloud Platform App Engine deployment configuration
+runtime: nodejs18
+
+# Instance class for better performance
+instance_class: F2
+
+# Automatic scaling configuration
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+  target_cpu_utilization: 0.6
+  target_throughput_utilization: 0.6
+
+# Environment variables
+env_variables:
+  NODE_ENV: production
+  VITE_SUPABASE_URL: https://jzwmenumtoyacgfgfmqq.supabase.co
+  VITE_SUPABASE_PUBLISHABLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6d21lbnVtdG95YWNnZmdmbXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1NDMyMzQsImV4cCI6MjA3MzExOTIzNH0.P7J0hzgjCEuzWJQjNXdQC9X83gtJR6AbRDql-xkYkNc
+  VITE_SUPABASE_PROJECT_ID: jzwmenumtoyacgfgfmqq
+
+# Static files handling
+handlers:
+- url: /assets
+  static_dir: dist/assets
+  secure: always
+
+- url: /.*
+  static_files: dist/index.html
+  upload: dist/index.html
+  secure: always
+
+# Build configuration
+build_env_variables:
+  NODE_ENV: production
